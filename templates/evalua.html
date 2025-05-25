@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Evaluación de Lectura - Contugas{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Evaluar Nueva Lectura</h1>
+    <form method="post" class="card p-4 mb-4 shadow-sm bg-white rounded">
+        <div class="row mb-2">
+            <div class="col-md-3">
+                <label for="cliente">Cliente:</label>
+                <select id="cliente" name="cliente" class="form-control" required>
+                    {% for c in clientes %}
+                        <option value="{{ c }}">{{ c }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="presion">Presión:</label>
+                <input type="number" step="any" name="presion" class="form-control" required>
+            </div>
+            <div class="col-md-3">
+                <label for="temperatura">Temperatura:</label>
+                <input type="number" step="any" name="temperatura" class="form-control" required>
+            </div>
+            <div class="col-md-3">
+                <label for="volumen">Volumen:</label>
+                <input type="number" step="any" name="volumen" class="form-control" required>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Evaluar Lectura</button>
+    </form>
+
+    {% if resultado %}
+        <div class="card p-4 shadow-sm bg-white rounded mb-4">
+            <h5>Resultado:</h5>
+            {% if "Error" in resultado %}
+                <div class="alert alert-danger">{{ resultado }}</div>
+            {% else %}
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Cliente</th>
+                        <td>{{ detalles.cliente }}</td>
+                    </tr>
+                    <tr>
+                        <th>Lectura Escalada</th>
+                        <td>{{ detalles.lectura_escalada }}</td>
+                    </tr>
+                    <tr>
+                        <th>MSE de la predicción</th>
+                        <td>{{ detalles.mse_prediccion }} (umbral {{ detalles.umbral }})</td>
+                    </tr>
+                    <tr>
+                        <th>Estado</th>
+                        <td>
+                            {% if resultado == 'Anomalía' %}
+                                <span class="badge bg-danger">Anomalía</span>
+                            {% else %}
+                                <span class="badge bg-success">Normal</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,101 @@
+/* Reset básico */
+body {
+    background-color: #f6f8fa;
+    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor principal */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 16px;
+}
+
+/* Títulos */
+h1, h5 {
+    font-weight: 600;
+    color: #22223b;
+}
+
+h1 {
+    letter-spacing: 1px;
+}
+
+.card {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 4px 14px rgba(36, 41, 46, 0.07);
+    border: none;
+    margin-bottom: 24px;
+    transition: box-shadow 0.3s;
+}
+
+.card:hover {
+    box-shadow: 0 6px 20px rgba(36, 41, 46, 0.12);
+}
+
+/* KPIs */
+.card h2 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.text-primary {
+    color: #4361ee !important;
+}
+
+.text-danger {
+    color: #f72585 !important;
+}
+
+.text-success {
+    color: #06d6a0 !important;
+}
+
+.text-muted {
+    color: #777 !important;
+    font-size: 0.9rem;
+}
+
+/* Para la fila de KPIs */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.col-md-4 {
+    flex: 1;
+    min-width: 260px;
+}
+
+/* Sección del gráfico */
+.card > h5 {
+    margin-bottom: 18px;
+}
+
+/* Lista de alertas */
+ul {
+    margin-left: 20px;
+    color: #555;
+}
+
+/* Responsive para móvil */
+@media (max-width: 768px) {
+    .row {
+        flex-direction: column;
+        gap: 12px;
+    }
+    .container {
+        padding: 16px 6px;
+    }
+    h1 {
+        font-size: 1.5rem;
+    }
+    .card h2 {
+        font-size: 2rem;
+    }
+}

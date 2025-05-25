@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard General - Contugas{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Dashboard General - Consumo de Gas y Anomalías</h1>
+    
+    <!-- KPIs principales -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card shadow-sm p-3 mb-2 bg-white rounded text-center">
+                <h5>Total Clientes</h5>
+                <h2 class="text-primary">{{ total_clientes }}</h2>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm p-3 mb-2 bg-white rounded text-center">
+                <h5>Total Anomalías</h5>
+                <h2 class="text-danger">{{ total_anomalias }}</h2>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm p-3 mb-2 bg-white rounded text-center">
+                <h5>Consumo Total</h5>
+                <h2 class="text-success">{{ consumo_total | round(2) }}</h2>
+                <span class="text-muted">[m³]</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Espacio para gráfico resumen -->
+    <div class="card shadow-sm p-4 mb-4 bg-white rounded">
+        <h5 class="mb-3">Resumen Histórico de Consumo y Anomalías</h5>
+        <!-- Aquí se inserta el gráfico de Plotly generado desde Flask -->
+        <div>
+            <iframe title="PBI ndicadores LARAIGO" 
+            width="1000" 
+            height="573.5" src="https://app.powerbi.com/view?r=eyJrIjoiZWQ3OGVlY2QtMTQ5ZC00N2RjLWIzNzMtNGZmYTU0ZGFmNDFkIiwidCI6IjZiMzMzNzllLTJhMGUtNGFkYy1iMWRlLWU0ZDZiMzFkYmViMSIsImMiOjR9" frameborder="0" allowFullScreen="true"></iframe>
+        </div>
+    </div>
+
+    <!-- Panel de alertas o resumen rápido de estado -->
+    <div class="card shadow-sm p-4 bg-white rounded">
+        <h5 class="mb-3">Integrantes</h5>
+        <ul>
+            <li>Carolina Castellano</li>            
+            <li>Juan Diego Saquicoray</li>
+            <li>Wilfredo Daza Diaz</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

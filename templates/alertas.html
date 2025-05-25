@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Alertas y Anomalías - Contugas{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Alertas y Anomalías Detectadas</h1>
+
+    <!-- Resumen de alertas -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card shadow-sm p-2 bg-white rounded text-center">
+                <h6>Total Alertas</h6>
+                <h3>{{ alertas.shape[0] }}</h3>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm p-2 bg-white rounded text-center">
+                <h6>Clientes afectados</h6>
+                <h3>{{ alertas['id_cliente'].nunique() }}</h3>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm p-2 bg-white rounded text-center">
+                <h6>Última anomalía</h6>
+                <h3>{{ alertas['Fecha'].max() if not alertas.empty else '-' }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabla de alertas -->
+    <div class="card shadow-sm p-4 bg-white rounded mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5>Lista de Alertas</h5>
+            <form method="post" action="/descargar">
+                <input type="hidden" name="filtro" value="alertas">
+                <button type="submit" class="btn btn-outline-danger btn-sm">Descargar CSV</button>
+            </form>
+        </div>
+        <div style="max-height: 340px; overflow-y: auto;">
+            <table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Presión</th>
+                        <th>Temperatura</th>
+                        <th>Volumen</th>
+                        <th>Cliente</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for row in alertas.itertuples() %}
+                    <tr>
+                        <td>{{ row.Fecha }}</td>
+                        <td>{{ row.Presión }}</td>
+                        <td>{{ row.Temperatura }}</td>
+                        <td>{{ row.Volumen }}</td>
+                        <td>{{ row.id_cliente }}</td>
+                        <td>
+                            <span class="badge bg-danger">Anomalía</span>
+                            <!-- Puedes poner botón para ver detalle o marcar como revisada en el futuro -->
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% if alertas.empty %}
+            <div class="alert alert-success mt-3">No hay alertas activas actualmente.</div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
